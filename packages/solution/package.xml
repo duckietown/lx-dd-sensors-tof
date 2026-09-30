@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>solution</name>
+  <version>0.0.1</version>
+  <description>Duckiedrone ToF Sensors LX: student solution package</description>
+  <maintainer email="info@duckietown.com">Duckietown</maintainer>
+  <license>None</license>
+
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
