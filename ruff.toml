@@ -1,0 +1,34 @@
+line-length = 79
+target-version = "py312"
+
+[lint]
+select = ["ALL"]
+# CPY001 requires copyright headers.
+# COM812 conflicts with Ruff formatting.
+# D203 and D213 conflict with the selected docstring rules.
+ignore = ["COM812", "CPY001", "D203", "D213"]
+
+[lint.per-file-ignores]
+# These scripts generate static teaching figures rather than reusable library APIs.
+"assets/_images/*.py" = [
+    "ANN",
+    "D",
+    "E501",
+    "INP001",
+    "PLR0913",
+    "PLR0917",
+    "T201",
+    "W505",
+]
+# Notebook code is learner-facing and intentionally prioritizes the surrounding explanation.
+"notebooks/*.ipynb" = ["ANN", "D", "E501", "PLR0917", "W505"]
+# Test functions use pytest assertions and do not need API documentation or annotations.
+"tests/*.py" = ["ANN", "D", "E501", "INP001", "S101", "W505"]
+# ROS package setup files are metadata scripts, not importable application modules.
+"packages/*/setup.py" = ["D100", "INP001"]
+# ROS invokes these files through package entry points and launch discovery.
+"packages/tof_listener/tof_listener/tof_listener_node.py" = ["EXE001"]
+"packages/tof_listener/launch/*.py" = ["EXE001"]
+
+[lint.pycodestyle]
+max-doc-length = 72
