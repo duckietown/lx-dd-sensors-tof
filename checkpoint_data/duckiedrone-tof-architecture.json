@@ -1,0 +1,37 @@
+{
+  "checkpoints": [
+    {
+      "id": "tof-ros-bridge",
+      "question": "What is the ROS 2 bridge responsible for in the ToF data path?",
+      "model_answer": "It receives the driver output and publishes a ROS 2 Range message on the sensor topic so ROS 2 nodes can consume the measurement.",
+      "evidence": [
+        {
+          "label": "The ROS 2 bridge",
+          "anchor": "#the-ros-2-bridge"
+        }
+      ]
+    },
+    {
+      "id": "tof-restart-order",
+      "question": "Why should the ToF driver be restarted before its ROS 2 bridge?",
+      "model_answer": "The bridge subscribes to the driver channel when it starts. Restarting the driver first and the bridge second makes the bridge establish a fresh subscription to the running driver.",
+      "evidence": [
+        {
+          "label": "Changing any of this",
+          "anchor": "#changing-any-of-this"
+        }
+      ]
+    },
+    {
+      "id": "tof-range-vs-altitude",
+      "question": "Why is the downward ToF range not always the Duckiedrone's altitude?",
+      "model_answer": "The sensor measures distance along its own axis to the surface below. Tilt makes that distance slanted, and an object beneath the Duckiedrone changes the reading even when its altitude stays the same.",
+      "evidence": [
+        {
+          "label": "The other consumer: the flight controller",
+          "anchor": "#the-other-consumer-the-flight-controller"
+        }
+      ]
+    }
+  ]
+}

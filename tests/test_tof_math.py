@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO_ROOT / 'packages' / 'solution'))
+sys.path.insert(0, str(REPO_ROOT / "packages" / "solution"))
 
 from solution.tof_math import (  # noqa: E402
     OUT_OF_RANGE_FLAG,
@@ -21,21 +21,24 @@ from solution.tof_math import (  # noqa: E402
     topics_for,
 )
 
+BOTTOM_RANGE_M = 0.50
+EXPECTED_OUT_OF_RANGE_FLAG = 999.0
 
-def _reading(name, r):
-    return ToFReading(sensor_name=name, stamp_sec=0.0, range_m=r)
+
+def _reading(sensor_name, range_m):
+    return ToFReading(sensor_name=sensor_name, stamp_sec=0.0, range_m=range_m)
 
 
 def test_reading_keeps_what_the_bridge_sent():
-    r = _reading("bottom", 0.50)
-    assert r.sensor_name == "bottom"
-    assert r.range_m == 0.50
-    assert r.frame_id == ""
+    reading = _reading("bottom", BOTTOM_RANGE_M)
+    assert reading.sensor_name == "bottom"
+    assert reading.range_m == BOTTOM_RANGE_M
+    assert reading.frame_id == ""
 
 
 def test_out_of_range_flag_matches_the_bridge():
     # The ROS 2 bridge publishes 999.0 in `range` when the driver has no distance.
-    assert OUT_OF_RANGE_FLAG == 999.0
+    assert OUT_OF_RANGE_FLAG == EXPECTED_OUT_OF_RANGE_FLAG
 
 
 def test_topics_for_single_sensor():

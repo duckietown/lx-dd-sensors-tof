@@ -1,0 +1,37 @@
+{
+  "checkpoints": [
+    {
+      "id": "tof-round-trip-time",
+      "question": "What quantity does a time-of-flight sensor use to estimate distance?",
+      "model_answer": "It measures how long emitted light takes to return from a surface, then converts that round-trip time into distance using the speed of light.",
+      "evidence": [
+        {
+          "label": "How the distance is measured",
+          "anchor": "#how-the-distance-is-measured"
+        }
+      ]
+    },
+    {
+      "id": "tof-maximum-range",
+      "question": "Why is a ToF sensor maximum range not one fixed distance?",
+      "model_answer": "A return must contain enough usable light for the sensor to detect it, so surface reflectivity, angle, ambient light, and the selected measurement settings affect the usable range.",
+      "evidence": [
+        {
+          "label": "What \"maximum range\" means",
+          "anchor": "#what-maximum-range-means"
+        }
+      ]
+    },
+    {
+      "id": "tof-timing-budget-tradeoff",
+      "question": "What improves, and what sampling constraint comes with a longer VL53L1X timing budget?",
+      "model_answer": "Collecting photons longer gives steadier readings and often extends the usable range. The inter-measurement period cannot be shorter than the timing budget, which limits the highest measurement rate.",
+      "evidence": [
+        {
+          "label": "The chip's settings",
+          "anchor": "#the-chips-settings"
+        }
+      ]
+    }
+  ]
+}

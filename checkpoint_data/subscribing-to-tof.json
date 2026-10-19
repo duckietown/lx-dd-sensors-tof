@@ -1,0 +1,37 @@
+{
+  "checkpoints": [
+    {
+      "id": "tof-inspect-before-code",
+      "question": "Which three topic properties should be checked before writing a ToF subscriber?",
+      "model_answer": "Inspect the topic name, its publisher and subscriber information, and its publication rate before writing the subscriber.",
+      "evidence": [
+        {
+          "label": "Look at the data first",
+          "anchor": "#look-at-the-data-first"
+        }
+      ]
+    },
+    {
+      "id": "tof-sensor-qos",
+      "question": "Which quality-of-service profile should the ToF subscriber use?",
+      "model_answer": "Use qos_profile_sensor_data so the subscriber matches the sensor-data quality-of-service profile used by the ToF bridge.",
+      "evidence": [
+        {
+          "label": "Activity 1: write the subscriber",
+          "anchor": "#activity-1-write-the-subscriber"
+        }
+      ]
+    },
+    {
+      "id": "tof-troubleshoot-missing-range",
+      "question": "What should be checked if a ToF listener subscribes but receives no readings?",
+      "model_answer": "Confirm that the logged topic has a publisher and a measured rate, that the driver and ROS 2 bridge are running, and on a virtual Duckiedrone that the Duckiematrix is running with the Duckiedrone attached.",
+      "evidence": [
+        {
+          "label": "Activity 2: run the node on the Duckiedrone",
+          "anchor": "#activity-2-run-the-node-on-the-duckiedrone"
+        }
+      ]
+    }
+  ]
+}

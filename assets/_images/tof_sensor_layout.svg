@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" font-family="Helvetica, Arial, sans-serif" font-size="15">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#000"/>
+    </marker>
+  </defs>
+  <rect width="900" height="450" fill="#fff"/>
+
+  <!-- Top view -->
+  <text x="250" y="20" text-anchor="middle" font-weight="bold">Top view</text>
+
+  <g fill="none" stroke="#666" stroke-width="2">
+    <line x1="210" y1="175" x2="160" y2="135"/>
+    <line x1="290" y1="175" x2="340" y2="135"/>
+    <line x1="210" y1="275" x2="160" y2="315"/>
+    <line x1="290" y1="275" x2="340" y2="315"/>
+    <circle cx="160" cy="135" r="42" stroke-dasharray="6 4"/>
+    <circle cx="340" cy="135" r="42" stroke-dasharray="6 4"/>
+    <circle cx="160" cy="315" r="42" stroke-dasharray="6 4"/>
+    <circle cx="340" cy="315" r="42" stroke-dasharray="6 4"/>
+  </g>
+  <rect x="210" y="175" width="80" height="100" rx="8" fill="#ddd" stroke="#333" stroke-width="2"/>
+  <text x="250" y="230" text-anchor="middle" font-size="13">body</text>
+
+  <g fill="#1f6fb4" fill-opacity="0.18" stroke="#1f6fb4" stroke-width="1.5" stroke-dasharray="5 3">
+    <polygon points="250,170 225,55 275,55"/>
+    <polygon points="205,225 110,200 110,250"/>
+    <polygon points="295,225 390,200 390,250"/>
+  </g>
+  <g fill="#e07b00" stroke="#000" stroke-width="1">
+    <rect x="240" y="167" width="20" height="8"/>
+    <rect x="202" y="215" width="8" height="20"/>
+    <rect x="290" y="215" width="8" height="20"/>
+  </g>
+  <text x="250" y="45" text-anchor="middle">front ToF: +x</text>
+  <text x="104" y="230" text-anchor="end">left ToF: -y</text>
+  <text x="396" y="230">right ToF: +y</text>
+  <text x="250" y="300" text-anchor="middle" font-size="13" fill="#444">rear: no ToF</text>
+
+  <g stroke="#000" stroke-width="2">
+    <line x1="40" y1="400" x2="40" y2="352" marker-end="url(#arrow)"/>
+    <line x1="40" y1="400" x2="88" y2="400" marker-end="url(#arrow)"/>
+    <circle cx="40" cy="400" r="8" fill="#fff"/>
+    <line x1="34" y1="394" x2="46" y2="406"/>
+    <line x1="46" y1="394" x2="34" y2="406"/>
+  </g>
+  <text x="28" y="350" text-anchor="end">+x</text>
+  <text x="94" y="405">+y</text>
+  <text x="22" y="432">+z: into the page (down)</text>
+
+  <line x1="510" y1="30" x2="510" y2="430" stroke="#bbb" stroke-width="1"/>
+
+  <!-- Side view, seen from the right -->
+  <text x="710" y="20" text-anchor="middle" font-weight="bold">Side view, from the right</text>
+
+  <line x1="560" y1="330" x2="880" y2="330" stroke="#000" stroke-width="2"/>
+  <g stroke="#999" stroke-width="1">
+    <line x1="580" y1="330" x2="570" y2="342"/>
+    <line x1="620" y1="330" x2="610" y2="342"/>
+    <line x1="660" y1="330" x2="650" y2="342"/>
+    <line x1="700" y1="330" x2="690" y2="342"/>
+    <line x1="740" y1="330" x2="730" y2="342"/>
+    <line x1="780" y1="330" x2="770" y2="342"/>
+    <line x1="820" y1="330" x2="810" y2="342"/>
+    <line x1="860" y1="330" x2="850" y2="342"/>
+  </g>
+  <text x="880" y="362" text-anchor="end" font-size="13" fill="#444">floor</text>
+
+  <g fill="#1f6fb4" fill-opacity="0.18" stroke="#1f6fb4" stroke-width="1.5" stroke-dasharray="5 3">
+    <polygon points="700,180 680,70 720,70"/>
+    <polygon points="700,218 680,330 720,330"/>
+    <polygon points="755,200 860,180 860,220"/>
+  </g>
+
+  <g fill="none" stroke="#666" stroke-width="2">
+    <line x1="610" y1="190" x2="650" y2="190"/>
+    <line x1="750" y1="190" x2="790" y2="190"/>
+    <line x1="610" y1="190" x2="610" y2="176"/>
+    <line x1="790" y1="190" x2="790" y2="176"/>
+    <ellipse cx="610" cy="170" rx="40" ry="6" stroke-dasharray="6 4"/>
+    <ellipse cx="790" cy="170" rx="40" ry="6" stroke-dasharray="6 4"/>
+    <line x1="665" y1="215" x2="655" y2="265"/>
+    <line x1="735" y1="215" x2="745" y2="265"/>
+  </g>
+  <rect x="650" y="185" width="100" height="30" rx="6" fill="#ddd" stroke="#333" stroke-width="2"/>
+  <g fill="#e07b00" stroke="#000" stroke-width="1">
+    <rect x="690" y="178" width="20" height="7"/>
+    <rect x="690" y="215" width="20" height="7"/>
+    <rect x="750" y="190" width="7" height="20"/>
+  </g>
+  <text x="700" y="60" text-anchor="middle">top ToF: -z</text>
+  <text x="728" y="300">bottom ToF: +z</text>
+  <text x="880" y="245" text-anchor="end">front ToF: +x</text>
+
+  <g stroke="#000" stroke-width="2">
+    <line x1="560" y1="385" x2="610" y2="385" marker-end="url(#arrow)"/>
+    <line x1="560" y1="385" x2="560" y2="433" marker-end="url(#arrow)"/>
+    <circle cx="560" cy="385" r="8" fill="#fff"/>
+  </g>
+  <circle cx="560" cy="385" r="2.5" fill="#000"/>
+  <text x="616" y="390">+x</text>
+  <text x="570" y="440">+z (down)</text>
+  <text x="576" y="372">+y: out of the page</text>
+</svg>

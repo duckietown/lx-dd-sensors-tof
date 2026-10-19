@@ -1,0 +1,37 @@
+{
+  "checkpoints": [
+    {
+      "id": "tof-extra-sensor-stack",
+      "question": "What starts the four additional ToF sensor services on a Duckiedrone?",
+      "model_answer": "The duckiedrone/extra_sensors stack starts the front, left, right, and top ToF sensor services in addition to the standard bottom sensor path.",
+      "evidence": [
+        {
+          "label": "Activity 1: start the other four sensors",
+          "anchor": "#activity-1-start-the-other-four-sensors"
+        }
+      ]
+    },
+    {
+      "id": "tof-all-sensor-topics",
+      "question": "How does the subscriber distinguish readings from all five ToF sensors?",
+      "model_answer": "It subscribes to one topic for each configured sensor and keeps each reading associated with that sensor name.",
+      "evidence": [
+        {
+          "label": "Activity 2: subscribe to all five",
+          "anchor": "#activity-2-subscribe-to-all-five"
+        }
+      ]
+    },
+    {
+      "id": "tof-extra-sensor-cost",
+      "question": "Why are four ToF sensors off by default, and how many containers does starting them add?",
+      "model_answer": "Each added sensor needs a driver and a ROS 2 bridge, so starting the other four adds eight containers. Their processor cost on the Raspberry Pi is why they stay off by default.",
+      "evidence": [
+        {
+          "label": "The five sensors",
+          "anchor": "#the-five-sensors"
+        }
+      ]
+    }
+  ]
+}
