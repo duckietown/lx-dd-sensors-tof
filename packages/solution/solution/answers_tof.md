@@ -22,16 +22,17 @@
 
 3. What sets how often a new reading arrives?
 
-4. Why do a target the sensor cannot detect and a target beyond 3.6 m arrive on the topic as the
+4. Why do a target the sensor cannot detect and a target beyond $3.6\,\mathrm{m}$ arrive on the topic as the
    same value?
 
-5. Why does a node that subscribes to the range and then crashes not affect the flight controller?
+5. Why does stopping the learner subscriber not stop the flight-control path, while a ToF driver or
+   bridge failure stops both?
 
 ## Notebook 3: subscribing to the ToF topic
 
-1. Why does `_make_callback` build a callback instead of the node passing one method?
+1. Which program publishes the downward ToF topic, and which programs subscribe to it?
 
-2. Why does the callback store the reading rather than print it?
+2. How often does the downward ToF topic publish, and how can that be checked?
 
 3. What does one printed line describe?
 
