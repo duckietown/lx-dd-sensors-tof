@@ -8,3 +8,4 @@ dist/
 .eggs/
 install/
 log/
+assets/data/tof_accuracy_*

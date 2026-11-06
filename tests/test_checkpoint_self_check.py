@@ -333,7 +333,7 @@ def test_multiple_choice_checkpoint_requires_selection_and_resets() -> None:
     assert "checkpoint-choice-answer" in self_check.answer.get_state()[
         "_dom_classes"
     ]
-    assert len(self_check.choice_options) == 2
+    assert len(self_check.choice_options) == len(CHECKPOINT_CHOICES)
     assert not any(
         choice_option.value for choice_option in self_check.choice_options
     )

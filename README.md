@@ -1,118 +1,124 @@
 <p align="center">
-<a href="https://duckietown.com"><img src="./assets/images/dtlogo.png" alt="Duckietown Logo" width="50%"></a>
+<a href="https://duckietown.com"><img src="./assets/images/dtlogo.png" alt="Duckietown Logo" width="30%"></a>
 </p>
 
 # Learning Experience (LX): Duckiedrone ToF Sensors
 
 `Software: ente`; `Hardware: DD24-B`
 
-A time-of-flight (ToF) sensor estimates distance from light returned by a surface. The Duckiedrone
-carries five: one pointing down, one up, and three horizontally to the front, left, and right. The
-downward reading provides the flight controller with a height cue, not an absolute altitude. This
-learning experience (LX) covers how the sensor measures distance and its limits, how a reading
-reaches a ROS 2 topic, and how to subscribe to one or all five sensors.
+The Duckiedrone's five time-of-flight (ToF) sensors measure distances to surfaces below,
+above, ahead, and on either side of the Duckiedrone. The downward reading contributes to height
+estimation, while the other four provide observations of nearby surfaces. Their usefulness depends
+on the target, lighting, acquisition settings, and how recently each reading arrived. This learning
+experience (LX) investigates those conditions, measures accuracy against an independent reference,
+and follows the readings into a ROS 2 program that receives data from one or all five sensors.
 
 ## Intended learning outcomes
 
 After completing this LX, learners will be able to:
 
-1. Explain how a time-of-flight sensor recovers a distance, and predict how its maximum range changes with the surface it is pointed at, the ambient light, and its timing budget.
+1. Explain how a ToF sensor estimates distance and how target properties, ambient light, and acquisition settings affect its readings.
 
-2. Trace a range reading from the sensor chip to a ROS 2 topic, naming what each step changes and what sets its rate.
+2. Record stationary measurements and compare their mean and median with an independently measured reference, reporting signed mean error, sample standard deviation, and rejected-reading fraction.
 
-3. Read a `sensor_msgs/Range` message from a Duckiedrone and tell a usable distance apart from a reading to discard.
+3. Trace a reading from the sensor to a ROS 2 topic, identifying where its units, timestamp, and range bounds are determined and distinguishing configured frequency from observed arrival rate.
 
-4. Write, deploy, and run a ROS 2 node on a Duckiedrone that subscribes to one ToF topic, then to all five.
+4. Interpret a `sensor_msgs/msg/Range` message using its range bounds, scene geometry, and timing.
+
+5. Complete, deploy, and run the supplied ROS 2 subscriber for one or all five sensors, explaining how callbacks update readings and a timer displays the stored values.
 
 ## Run this LX
 
-Follow the Duckietown Manual's [LX General Instructions](https://docs.duckietown.com/ente/opmanual-dd24/50-learning-experiences/lx-general-procedure.html) to open this LX in a prepared environment. The notebooks provide the topic-specific activities; the prerequisites below describe the local setup.
+Follow the Duckietown Manual's [LX General Instructions](https://docs.duckietown.com/ente/opmanual-dd24/50-learning-experiences/lx-general-procedure.html)
+to open the LX in its prepared editor environment. Work through the notebooks in order.
 
 ## Notebooks
 
-Start with [Notebook 1](./notebooks/1-tof-basics.ipynb) for the sensor model and measurement
-limits. [Notebook 2](./notebooks/2-duckiedrone-tof-architecture.ipynb) traces the data to a ROS 2
-topic. [Notebook 3](./notebooks/3-subscribing-to-tof.ipynb) builds a downward-range listener;
-[Notebook 4](./notebooks/4-all-five-sensors.ipynb) starts the remaining services and extends it to
-all five sensors.
-
-| # | Notebook | Description |
+| # | Notebook | Investigation |
 | --- | --- | --- |
-| 1 | [Notebook 1](./notebooks/1-tof-basics.ipynb) | What a time-of-flight sensor measures, how the VL53L1X measures it, and when it cannot |
-| 2 | [Notebook 2](./notebooks/2-duckiedrone-tof-architecture.ipynb) | The path from the VL53L1X to `/DUCKIEDRONE_NAME/<sensor>_tof_driver_node/range`, and where its settings live |
-| 3 | [Notebook 3](./notebooks/3-subscribing-to-tof.ipynb) | Write, deploy, and run a ROS 2 node that reads a ToF topic |
-| 4 | [Notebook 4](./notebooks/4-all-five-sensors.ipynb) | Start the other four sensors and read all five with the same node |
+| 1 | [Time-of-Flight (ToF) Sensor Fundamentals](./notebooks/1-tof-basics.ipynb) | Inspect a reported range, explore a photon-count model, and interpret a stationary recording. |
+| 2 | [Measuring ToF sensor accuracy](./notebooks/2-measuring-tof-sensor-accuracy.ipynb) | Compare recorded ranges with a ruler measurement and characterize agreement, repeatability, and usable-reading availability. |
+| 3 | [Duckiedrone ToF Sensor Architecture](./notebooks/3-duckiedrone-tof-architecture.ipynb) | Trace readings through the driver, bridge, and flight-controller path; inspect configuration and message rates. |
+| 4 | [Subscribing to the ToF sensor data](./notebooks/4-subscribing-to-tof.ipynb) | Complete the downward-range subscriber and relate its periodic display to arriving measurements. |
+| 5 | [All Five Sensors](./notebooks/5-all-five-sensors.ipynb) | Start the additional sensor services, extend the subscriber, and interpret independently updated readings together. |
 
 ## Prerequisites
 
 Complete the Duckietown Manual's [Initial Setup](https://docs.duckietown.com/ente/opmanual-dd24/10-duckiedrone-preliminaries/initial-setup.html#required-software-and-accounts)
 so Docker and the Duckietown Shell (`dts`) are installed and configured on the base station.
-Notebooks 1 and 2 use a model and architectural explanations without a live Duckiedrone;
-[Notebooks 3](./notebooks/3-subscribing-to-tof.ipynb) and
-[4](./notebooks/4-all-five-sensors.ipynb) require a virtual or physical Duckiedrone running the
-`ente` software stack.
+Use the supported native Ubuntu setup or a Duckietown Workspace on macOS or Windows.
+The activities assume familiarity with Python functions, lists, and dictionaries, and with the
+basic ROS 2 topic and subscriber concepts introduced in the preceding LXs.
 
-The base station is the computer running Docker and `dts`. The `dts code editor` terminal belongs
-to a separate browser-editor environment: its filesystem and `localhost` are not the base station's.
-Keep a separate base-station terminal available for device commands.
+The model and supplied recording in
+[Time-of-Flight (ToF) Sensor Fundamentals](./notebooks/1-tof-basics.ipynb)
+can be explored without a connected Duckiedrone. Live topic inspection, driver configuration,
+and subscriber activities require a physical or virtual Duckiedrone running the `ente` stack.
+
+[Measuring ToF sensor accuracy](./notebooks/2-measuring-tof-sensor-accuracy.ipynb)
+requires a physical Duckiedrone, a ruler, a broad flat target, and stable supports that leave the
+sensor's field of view clear. The Duckiedrone box can serve as a support or target. A virtual
+Duckiedrone supports practice with collection and analysis using simulated geometry; physical
+sensor characterization and acquisition-setting comparisons use the physical hardware.
 
 ### Choose the terminal
 
+The base station is the computer or Workspace environment running the device-facing `dts`
+commands. Keep a separate base-station terminal available alongside the LX editor. The editor
+has its own filesystem and execution environment; recordings downloaded to the base station
+must also be made available in the editor's `assets/data/` directory.
+
 | Task | Where to run it |
 | --- | --- |
-| Read notebooks, run the model in [Notebook 1](./notebooks/1-tof-basics.ipynb), and edit [tof_subscriber.py](./packages/solution/solution/tof_subscriber.py), [tof_math.py](./packages/solution/solution/tof_math.py), and [the launch file](./packages/tof_listener/launch/tof_listener_node.launch.py) | `dts code editor` |
-| Run `dts duckiebot virtual connect`, `dts stack up` or `down`, `dts code build`, `dts code workbench`, or physical-device `ssh` | A separate base-station terminal, outside `dts code editor` |
-| Inspect `/DUCKIEDRONE_NAME/bottom_tof_driver_node/range` with `ros2 topic` in [Notebook 3](./notebooks/3-subscribing-to-tof.ipynb) | The authorized Duckiedrone's ToF bridge container shell, reached after connecting to the device |
-| Watch listener output and stop a live run | The original workbench terminal; keep it ready for `Ctrl-C` |
+| Read notebooks, run their Python cells, and edit the supplied source files | The LX editor opened through the general instructions |
+| Connect to the Duckiedrone, run `dts stack`, `dts code build`, or `dts code workbench`, and download a recording with `scp` | A separate base-station terminal in the LX project folder |
+| Inspect Docker containers, copy recordings out with `docker cp`, or edit physical driver configuration | The Duckiedrone device shell |
+| Inspect or record ToF messages with `ros2 topic` | A shell inside the Duckiedrone's `ros2-tof-bottom` bridge container |
+| Watch the listener output and stop a workbench run with `Ctrl+C` | The terminal running `dts code workbench` |
 
-### Local notebooks and checkpoints
+The connection and bridge-shell steps are introduced in
+[Time-of-Flight (ToF) Sensor Fundamentals](./notebooks/1-tof-basics.ipynb#gathering-tof-measurements-from-a-duckiedrone).
+Replace `DUCKIEDRONE_NAME` in commands with the configured Duckiedrone name, and use the topic
+namespace shown by `ros2 topic list`.
 
-Open the notebooks in `dts code editor`. Interactive checkpoints require notebook metadata supplied
-by that editor; a Jupyter/IPython kernel with `ipywidgets` alone is not sufficient. The sensor model
-in Notebook 1 can be explored before a Duckiedrone is available.
+### Physical and virtual operation
 
-### Virtual or physical Duckiedrone
+Keep a physical Duckiedrone disarmed with its motors stopped during these activities.
+For a virtual Duckiedrone, start the Duckiematrix and attach the Duckiedrone to an entity before
+expecting simulated ToF messages. Follow the
+[Duckiematrix setup instructions](https://docs.duckietown.com/ente/duckietown-manual/50-duckiematrix/getting-started/duckiematrix-first-steps.html).
 
-For a virtual Duckiedrone, start the Duckiematrix and attach the Duckiedrone to an entity you are
-authorized to operate before expecting ToF topics to carry data. For a physical DD24-B Duckiedrone,
-use the `ente` services described in [Notebook 3](./notebooks/3-subscribing-to-tof.ipynb). This LX
-does not arm or fly the Duckiedrone; handle a physical device only while disarmed and clear of the
-propellers.
+The standard stack starts the bottom sensor.
+[All Five Sensors](./notebooks/5-all-five-sensors.ipynb#activity-1)
+explains how to start the four additional driver/bridge pairs and check their streams.
+Record the original service state and settings before experiments, then restore them afterward.
 
-### Authorized device access
+### Notebooks and checkpoints
 
-Use only hardware, credentials, and a network path that its owner or administrator has explicitly
-authorized. Notebooks 3 and 4 connect to the Duckiedrone, and starting four extra sensor services
-in Notebook 4 changes its running configuration.
+Run the notebooks in the prepared LX editor. The self-check cells use the active notebook's
+identity supplied by that editor to load their questions. Enter a response before revealing
+the model answer.
 
-## Complete the ToF subscriber
+## Code activities
 
-Fill the two `TO IMPLEMENT` blocks in [tof_subscriber.py](./packages/solution/solution/tof_subscriber.py)
-to subscribe to and unpack downward `Range` messages as described in
-[Notebook 3](./notebooks/3-subscribing-to-tof.ipynb). [Notebook 4](./notebooks/4-all-five-sensors.ipynb)
-starts the other four sensor services, adds topic names in
-[tof_math.py](./packages/solution/solution/tof_math.py), and updates
-[the launch file](./packages/tof_listener/launch/tof_listener_node.launch.py) to listen to all five.
-From the LX root in the base-station terminal, build and run the listener on an authorized device:
-
-```bash
-dts code build -R DUCKIEDRONE_NAME
-dts code workbench -R DUCKIEDRONE_NAME
-```
-
-The workbench displays the listener's output. Keep the additional sensor services running during
-Notebook 4's activities, and stop them afterward as that notebook directs.
+[Subscribing to the ToF sensor data](./notebooks/4-subscribing-to-tof.ipynb)
+guides the two `TO IMPLEMENT` blocks in
+[tof_subscriber.py](./packages/solution/solution/tof_subscriber.py).
+[All Five Sensors](./notebooks/5-all-five-sensors.ipynb)
+extends the topic list in [tof_math.py](./packages/solution/solution/tof_math.py)
+and changes the sensor selection in
+[the launch file](./packages/tof_listener/launch/tof_listener_node.launch.py).
+The solution checkout already contains the subscriber and topic-helper implementations;
+its launch default selects the bottom sensor. Follow the notebooks to select all five, save
+changes, build, and run the workbench.
 
 ## Further reading
 
-Each notebook's Further reading section is the primary reference for its lesson. These sources
-cover the main stages of this LX:
+Each notebook links to the sources relevant to its lesson. The main references are:
 
-- **ToF measurement:** The [VL53L1X datasheet](https://www.st.com/resource/en/datasheet/vl53l1x.pdf) specifies distance modes, timing budgets, and range limits.
+- [VL53L1X datasheet](https://www.st.com/resource/en/datasheet/vl53l1x.pdf): sensor characteristics and ranging performance under specified conditions.
 
-- **ROS 2 range data:** The [sensor_msgs/Range message definition](https://github.com/ros2/common_interfaces/blob/jazzy/sensor_msgs/msg/Range.msg) describes fields and validity rules used by the listener.
-
-- **Virtual device:** [Duckiematrix setup](https://docs.duckietown.com/ente/duckietown-manual/50-duckiematrix/getting-started/duckiematrix-first-steps.html) covers preparing the simulated sensors.
+- [ROS 2 Range message definition](https://github.com/ros2/common_interfaces/blob/jazzy/sensor_msgs/msg/Range.msg): fields, units, and range validity rules.
 
 ## For LX authors
 

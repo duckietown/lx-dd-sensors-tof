@@ -1,0 +1,59 @@
+{
+  "checkpoints": [
+    {
+      "id": "tof-reference-distance",
+      "question": "Where should the reference distance be measured when characterizing a ToF sensor?",
+      "model_answer": "Measure from the sensor's optical face to the target surface along its viewing direction. Account for mounting position, target alignment, and the estimated uncertainty of the reference measurement.",
+      "evidence": [
+        {
+          "label": "1. Establish the reference distance",
+          "anchor": "#1-establish-the-reference-distance"
+        }
+      ]
+    },
+    {
+      "id": "tof-accuracy-repeatability",
+      "question": "A recording has a mean of 258 mm, a reference distance of 250 mm, and a sample standard deviation of 1 mm. What do these results describe?",
+      "model_answer": "The signed mean error is +8 mm, while the sample standard deviation describes a 1 mm spread around the mean. The readings are tightly grouped with a positive offset relative to the reference. Interpretation of that offset also depends on reference uncertainty and alignment.",
+      "evidence": [
+        {
+          "label": "Interpret the result",
+          "anchor": "#interpret-the-result"
+        }
+      ]
+    },
+    {
+      "id": "tof-mean-median",
+      "question": "Why compare the mean and median of the recorded readings?",
+      "model_answer": "The mean uses every accepted value, while the median describes the center of the sorted values. A difference between them can motivate checking the plots for asymmetry, unusual readings, or changes during the recording.",
+      "evidence": [
+        {
+          "label": "Compare the readings with the reference",
+          "anchor": "#compare-the-readings-with-the-reference"
+        }
+      ]
+    },
+    {
+      "id": "tof-rejected-readings",
+      "question": "Why report the rejected fraction alongside mean error and standard deviation?",
+      "model_answer": "Mean error and standard deviation summarize accepted readings. The rejected fraction records how often received messages contained values that failed the finite-value and advertised-range checks. Together they describe measurement agreement, repeatability, and usable-reading availability among the received messages.",
+      "evidence": [
+        {
+          "label": "Interpret the result",
+          "anchor": "#interpret-the-result"
+        }
+      ]
+    },
+    {
+      "id": "tof-controlled-comparison",
+      "question": "How should two target materials be compared fairly?",
+      "model_answer": "Keep the same sensor, measured distance, alignment, lighting, and driver settings. Account for material thickness so the exposed target face remains at the reference position. Record each material separately and compare mean error, standard deviation, and rejected fraction.",
+      "evidence": [
+        {
+          "label": "Different surface materials",
+          "anchor": "#different-surface-materials"
+        }
+      ]
+    }
+  ]
+}

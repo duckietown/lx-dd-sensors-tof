@@ -2,8 +2,8 @@
   "checkpoints": [
     {
       "id": "tof-inspect-before-code",
-      "question": "Which three topic properties should be checked before writing a ToF subscriber?",
-      "model_answer": "Inspect the topic name, its publisher and subscriber information, and its publication rate before writing the subscriber.",
+      "question": "What should be established before running the ToF subscriber?",
+      "model_answer": "Establish the exact topic name and Range message type, inspect the bridge publisher and its QoS settings, and confirm that messages arrive. Record the observed arrival rate for comparison with the subscriber's display.",
       "evidence": [
         {
           "label": "Look at the data first",
@@ -13,23 +13,23 @@
     },
     {
       "id": "tof-sensor-qos",
-      "question": "Which quality-of-service profile should the ToF subscriber use?",
-      "model_answer": "Use qos_profile_sensor_data so the subscriber matches the sensor-data quality-of-service profile used by the ToF bridge.",
+      "question": "The bridge offers reliable delivery and the subscriber requests best-effort delivery. Are these reliability policies compatible?",
+      "model_answer": "Yes. A reliable publisher can serve a best-effort subscriber. The sensor-data profile used here also requests volatile durability, which is compatible with the bridge's volatile publisher. Inspect the actual endpoint settings when diagnosing delivery.",
       "evidence": [
         {
-          "label": "Activity 1: write the subscriber",
-          "anchor": "#activity-1-write-the-subscriber"
+          "label": "1. Write the subscriber",
+          "anchor": "#1-write-the-subscriber"
         }
       ]
     },
     {
       "id": "tof-troubleshoot-missing-range",
-      "question": "What should be checked if a ToF listener subscribes but receives no readings?",
-      "model_answer": "Confirm that the logged topic has a publisher and a measured rate, that the driver and ROS 2 bridge are running, and on a virtual Duckiedrone that the Duckiematrix is running with the Duckiedrone attached.",
+      "question": "What distinguishes a listener that keeps printing \"Waiting for ToF data...\" from one that keeps printing its previous range after input stops?",
+      "model_answer": "The waiting message means the dictionary has no reading. After a callback stores a reading, the timer continues printing it until another callback replaces it. Checking incoming messages and timestamps helps determine whether that stored value is recent.",
       "evidence": [
         {
-          "label": "Activity 2: run the node on the Duckiedrone",
-          "anchor": "#activity-2-run-the-node-on-the-duckiedrone"
+          "label": "2. Run the node on the Duckiedrone",
+          "anchor": "#2-run-the-node-on-the-duckiedrone"
         }
       ]
     }

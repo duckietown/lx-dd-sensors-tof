@@ -36,7 +36,8 @@ def generate_launch_description() -> LaunchDescription:
         ),
     )
 
-    # Notebook 4, Activity 2 changes this default to all five sensors.
+    # "All Five Sensors", Activity 2 changes this default to all five
+    # sensors.
     sensor_names_arg = DeclareLaunchArgument(
         "sensor_names",
         default_value="['bottom']",

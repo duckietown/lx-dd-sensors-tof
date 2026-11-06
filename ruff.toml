@@ -21,7 +21,12 @@ ignore = ["COM812", "CPY001", "D203", "D213"]
     "W505",
 ]
 # Notebook code is learner-facing and intentionally prioritizes the surrounding explanation.
-"notebooks/*.ipynb" = ["ANN", "D", "E501", "PLR0917", "W505"]
+# Notebook cells intentionally print results, import the checkpoint helper after
+# path setup, and raise readable validation errors alongside literal thresholds.
+"notebooks/*.ipynb" = [
+    "ANN", "D", "E402", "E501", "EM101", "EM102", "PLR0917",
+    "PLR2004", "T201", "TRY003", "W505",
+]
 # Test functions use pytest assertions and do not need API documentation or annotations.
 "tests/*.py" = ["ANN", "D", "E501", "INP001", "S101", "W505"]
 # ROS package setup files are metadata scripts, not importable application modules.

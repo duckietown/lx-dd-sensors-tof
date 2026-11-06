@@ -2,8 +2,8 @@
   "checkpoints": [
     {
       "id": "tof-extra-sensor-stack",
-      "question": "What starts the four additional ToF sensor services on a Duckiedrone?",
-      "model_answer": "The duckiedrone/extra_sensors stack starts the front, left, right, and top ToF sensor services in addition to the standard bottom sensor path.",
+      "question": "What starts the four additional ToF paths, and how can their operation be checked?",
+      "model_answer": "The duckiedrone/extra_sensors stack starts the front, left, right, and top driver/bridge pairs. Check the eight additional containers, the corresponding ROS 2 topics and publishers, and message arrival.",
       "evidence": [
         {
           "label": "Activity 1: start the other four sensors",
@@ -13,8 +13,8 @@
     },
     {
       "id": "tof-all-sensor-topics",
-      "question": "How does the subscriber distinguish readings from all five ToF sensors?",
-      "model_answer": "It subscribes to one topic for each configured sensor and keeps each reading associated with that sensor name.",
+      "question": "How does the subscriber keep the five sensor streams separate?",
+      "model_answer": "It constructs one topic per configured sensor and creates a callback associated with that sensor name. Each callback updates its own entry in latest_readings. The logger displays the stored entries in alphabetical order.",
       "evidence": [
         {
           "label": "Activity 2: subscribe to all five",
@@ -23,13 +23,24 @@
       ]
     },
     {
-      "id": "tof-extra-sensor-cost",
-      "question": "Why are four ToF sensors off by default, and how many containers does starting them add?",
-      "model_answer": "Each added sensor needs a driver and a ROS 2 bridge, so starting the other four adds eight containers. Their processor cost on the Raspberry Pi is why they stay off by default.",
+      "id": "tof-separate-update-times",
+      "question": "Does a printed line containing all five sensors establish that their ranges describe one measurement instant?",
+      "model_answer": "Each sensor's callback updates independently, and the timer prints the entries stored at that moment. Their source timestamps can differ, and an entry can persist during a gap. Inspect per-sensor timing when combining the observations.",
       "evidence": [
         {
-          "label": "The five sensors",
-          "anchor": "#the-five-sensors"
+          "label": "Five readings, separate update times",
+          "anchor": "#five-readings-separate-update-times"
+        }
+      ]
+    },
+    {
+      "id": "tof-extra-sensor-cost",
+      "question": "How many containers does the extra-sensors stack add, and what should be restored after the activity?",
+      "model_answer": "It adds eight containers: a driver and bridge for each of four sensors. Restore experimental driver settings and the launch list, and return the extra services to their original running state. Check that the bottom-sensor stream remains available.",
+      "evidence": [
+        {
+          "label": "Restore the starting configuration",
+          "anchor": "#restore-the-starting-configuration"
         }
       ]
     }

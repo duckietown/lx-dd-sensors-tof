@@ -2,8 +2,8 @@
   "checkpoints": [
     {
       "id": "tof-round-trip-time",
-      "question": "What quantity does a time-of-flight sensor use to estimate distance?",
-      "model_answer": "It measures how long emitted light takes to return from a surface, then converts that round-trip time into distance using the speed of light.",
+      "question": "A rangefinder reports distances in 1 mm increments. Does that establish that each reading is accurate to 1 mm? Explain how round-trip time relates to distance.",
+      "model_answer": "No. Output resolution is the spacing between reported values, whereas accuracy concerns their agreement with the physical distance. In the ideal single-target geometry, light travels 2d, so d = c Delta t / 2.",
       "evidence": [
         {
           "label": "How the distance is measured",
@@ -12,24 +12,35 @@
       ]
     },
     {
-      "id": "tof-maximum-range",
-      "question": "Why is a ToF sensor maximum range not one fixed distance?",
-      "model_answer": "A return must contain enough usable light for the sensor to detect it, so surface reflectivity, angle, ambient light, and the selected measurement settings affect the usable range.",
-      "evidence": [
-        {
-          "label": "What \"maximum range\" means",
-          "anchor": "#what-maximum-range-means"
-        }
-      ]
-    },
-    {
       "id": "tof-timing-budget-tradeoff",
-      "question": "What improves, and what sampling constraint comes with a longer VL53L1X timing budget?",
-      "model_answer": "Collecting photons longer gives steadier readings and often extends the usable range. The inter-measurement period cannot be shorter than the timing budget, which limits the highest measurement rate.",
+      "question": "A sensor uses a 200 ms timing budget. Can setting its requested publication rate to 30 Hz produce 30 new measurements per second?",
+      "model_answer": "No. One measurement requires the allocated 200 ms, and the inter-measurement period must be at least that long. The resulting upper bound is five measurement starts per second; requesting a faster publication rate does not create additional independent measurements.",
       "evidence": [
         {
           "label": "The chip's settings",
           "anchor": "#the-chips-settings"
+        }
+      ]
+    },
+    {
+      "id": "tof-precision-vs-accuracy",
+      "question": "A stationary recording has a standard deviation of 2.07 mm. Does this establish that the sensor is accurate to approximately 2 mm?",
+      "model_answer": "No. The standard deviation describes the spread of the recorded values. Accuracy requires comparison with an independently known distance. A sensor can repeatedly report similar values while retaining a systematic offset. This recording is also below the specified minimum range.",
+      "evidence": [
+        {
+          "label": "ToF sensor precision and accuracy",
+          "anchor": "#tof-sensor-precision-and-accuracy"
+        }
+      ]
+    },
+    {
+      "id": "tof-maximum-range",
+      "question": "A message advertises max_range = 3.6 m. Does this guarantee that a target at 3.0 m will produce a usable reading?",
+      "model_answer": "No. The maximum is an upper bound used by the interface and driver. Detection within that bound still depends on the target, ambient light, and measurement settings. An unavailable range may be reported even when a target is closer than 3.6 m.",
+      "evidence": [
+        {
+          "label": "What \"maximum range\" means",
+          "anchor": "#what-maximum-range-means"
         }
       ]
     }
