@@ -2,46 +2,50 @@
 
 > Answers to the questions each notebook opens with.
 
-## Notebook 1: time-of-flight sensors, the basics
+## [Time-of-Flight (ToF) Sensor Fundamentals](../../../notebooks/1-tof-basics.ipynb)
 
-1. What does a time-of-flight sensor measure, and how does the VL53L1X turn detected light into a
-   distance?
+1. How does a rangefinder work, and in particular, how does the VL53L1X use light to estimate distance?
 
-2. Why does the distance reported by a stationary sensor change from one reading to the next?
+2. Why do repeated measurements vary when the Duckiedrone remains stationary?
 
-3. Why is the maximum range not a fixed number, and what sets it?
+3. How do the target, ambient light, and measurement settings affect usable range?
 
-4. Why do the errors of a rangefinder not accumulate the way the errors of an integrated
-   acceleration do?
+4. Why does a direct range measurement behave differently from a position estimate obtained by integrating acceleration?
 
-## Notebook 2: the Duckiedrone ToF data flow
+## [Measuring ToF sensor accuracy](../../../notebooks/2-measuring-tof-sensor-accuracy.ipynb)
 
-1. Which pieces of software handle a range reading between the chip and a subscriber?
+1. How close is the average reported distance to an independently measured reference?
 
-2. What does each one add to, or remove from, the reading?
+2. How do the mean, median, and standard deviation help describe the result?
 
-3. What sets how often a new reading arrives?
+3. How might target material, distance, sensor choice, or driver settings affect it?
 
-4. Why do a target the sensor cannot detect and a target beyond $3.6\,\mathrm{m}$ arrive on the topic as the
-   same value?
+## [Duckiedrone ToF Sensor Architecture](../../../notebooks/3-duckiedrone-tof-architecture.ipynb)
 
-5. Why does stopping the learner subscriber not stop the flight-control path, while a ToF driver or
-   bridge failure stops both?
+1. How does a reading travel from a ToF sensor to a ROS 2 subscriber?
 
-## Notebook 3: subscribing to the ToF topic
+2. Which component determines its units, timestamp, and range limits?
 
-1. Which program publishes the downward ToF topic, and which programs subscribe to it?
+3. How does the same sensor supply information to the flight controller?
 
-2. How often does the downward ToF topic publish, and how can that be checked?
+4. What constrains the publication rate, and how are configuration changes applied?
 
-3. What does one printed line describe?
+## [Subscribing to the ToF sensor data](../../../notebooks/4-subscribing-to-tof.ipynb)
 
-4. Which printed values are not distances, and what should a consumer do with them?
+1. How does a subscriber receive and store a ToF reading?
 
-## Notebook 4: using all five sensors
+2. How can the input rate and display rate be observed separately?
 
-1. What has to be running on the Duckiedrone before a topic exists to subscribe to?
+3. What information is retained from each message?
 
-2. Where do the five topic names come from, and why can they be generated rather than listed?
+4. How should reported values and continued message arrival be checked?
 
-3. Why do the five readings in one printed line come from different measurement times?
+## [All Five Sensors](../../../notebooks/5-all-five-sensors.ipynb)
+
+1. Which services supply the four additional sensor streams?
+
+2. How does one subscriber associate each message with its sensor?
+
+3. What does a line containing five ranges reveal about the surrounding scene?
+
+4. How can the timing of those readings affect their interpretation?
