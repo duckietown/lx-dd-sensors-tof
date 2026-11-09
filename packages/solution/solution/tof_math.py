@@ -9,8 +9,9 @@ helpers.
 from dataclasses import dataclass
 
 # What the ROS 2 bridge puts in ``range`` when the driver has no
-# distance to report (Notebook 2, Step 3). It is far above max_range,
-# which marks the reading as one to discard.
+# distance to report ("Duckiedrone ToF Sensor Architecture", The ROS 2
+# bridge). It is far above max_range, which marks the reading as one to
+# discard.
 OUT_OF_RANGE_FLAG = 999.0
 
 
@@ -27,8 +28,8 @@ class ToFReading:
 def topics_for(sensor_names: list[str]) -> list[str]:
     """Return one ToF bridge topic for each sensor name."""
     # ------------------------------------------------------------------
-    # TO IMPLEMENT: build one topic per name. Notebook 4, Activity 2
-    # explains the pattern.
+    # TO IMPLEMENT: build one topic per name. Activity 2 in
+    # "All Five Sensors" explains the pattern.
     #
     #   ["bottom", "front"] -> ["/bottom_tof_driver_node/range",
     #                              "/front_tof_driver_node/range"]
@@ -36,5 +37,5 @@ def topics_for(sensor_names: list[str]) -> list[str]:
     # Leave out the /DUCKIEDRONE_NAME prefix; ToFSubscriber adds it.
     # ------------------------------------------------------------------
     # Until this is written, only the bottom sensor's topic comes back,
-    # which is all Notebook 3 needs.
+    # which is all "Subscribing to the ToF sensor data" needs.
     return ["/bottom_tof_driver_node/range"]

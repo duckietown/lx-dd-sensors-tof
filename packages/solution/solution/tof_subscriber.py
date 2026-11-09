@@ -6,8 +6,8 @@ newest reading from each sensor in ``latest_readings``. A throttled
 logger prints them at ~1 Hz so students can verify the subscriber is
 working.
 
-Notebook 3 writes this node for the downward sensor. Notebook 4 points
-it at all five.
+"Subscribing to the ToF sensor data" writes the downward subscriber.
+"All Five Sensors" extends it to all five sensors.
 """
 
 from collections.abc import Callable
@@ -29,8 +29,9 @@ class ToFSubscriber(Node):
         super().__init__("tof_subscriber")
 
         # Step 1: read the node's parameters. The launch file sets them:
-        # robot_namespace is the Duckiedrone's hostname. Notebook 4
-        # extends sensor_names from ["bottom"] to all five sensors.
+        # robot_namespace is the Duckiedrone's hostname.
+        # "All Five Sensors" extends sensor_names from ["bottom"] to all
+        # five sensors.
         self.declare_parameter("robot_namespace", "")
         self.declare_parameter("sensor_names", ["bottom"])
         self.declare_parameter("log_period_sec", 1.0)
@@ -45,7 +46,7 @@ class ToFSubscriber(Node):
         log_period = log_period_parameter.get_parameter_value().double_value
 
         # Every ToF topic starts with the hostname, as `ros2 topic list`
-        # shows in Notebook 3.
+        # shows in "Subscribing to the ToF sensor data".
         prefix = f"/{robot}" if robot else ""
 
         # Step 2: keep the newest reading from each sensor.
@@ -65,7 +66,8 @@ class ToFSubscriber(Node):
 
             # ------------------------------------------------
             # TO IMPLEMENT: subscribe to this sensor's Range messages.
-            # Activity 1 in Notebook 3 explains each argument.
+            # Activity 1 in "Subscribing to the ToF sensor data"
+            # explains each argument.
             #
             # - Message type: Range.
             # - Topic: the `full_topic` variable above.
@@ -75,8 +77,9 @@ class ToFSubscriber(Node):
             # Append the returned subscription to self.subs.
             # ------------------------------------------------
 
-        # Step 4: print on a timer, not from the callback. Notebook 3,
-        # Activity 1 explains why the two are kept apart.
+        # Step 4: print on a timer, not from the callback. Activity 1 in
+        # "Subscribing to the ToF sensor data" explains why the two are
+        # kept apart.
         self.create_timer(log_period, self.cb_log)
 
     def _make_callback(self, name: str) -> Callable[[Range], None]:
@@ -90,7 +93,8 @@ class ToFSubscriber(Node):
             """Store the latest reading for this sensor."""
             # ------------------------------------------------
             # TO IMPLEMENT: unpack msg into self.latest_readings[name].
-            # Activity 1 in Notebook 3 explains the fields.
+            # Activity 1 in "Subscribing to the ToF sensor data"
+            # explains the fields.
             #
             # - Range: float(msg.range), in m.
             # - Timestamp: seconds plus nanoseconds times 1e-9.
@@ -108,14 +112,14 @@ class ToFSubscriber(Node):
         """Log the most recently received ToF readings."""
         # Until the first message arrives there is nothing to print.
         # A node stuck here is the "When nothing arrives" case in
-        # Notebook 3, Activity 2.
+        # "Subscribing to the ToF sensor data", Activity 2.
         if not self.latest_readings:
             self.get_logger().info("Waiting for ToF data...")
             return
 
         # Print one line with the newest range from each sensor.
         # Values below min_range and the 999.0 marker are not filtered
-        # out (Notebook 3, Activity 3).
+        # out ("Subscribing to the ToF sensor data", Activity 3).
         parts = [
             f"{name}={reading.range_m:.3f}m"
             for name, reading in sorted(self.latest_readings.items())
